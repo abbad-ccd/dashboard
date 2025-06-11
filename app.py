@@ -17,20 +17,21 @@ def show_html_chart(title: str, filename: str, height: int = 600):
         st.error(f"❌ Could not find {filename}")
 
 st.subheader("Demographics:")
+col1, col2 = st.columns(2)
+with col1:
+    show_html_chart("Party Affiliation", "party.html")
+with col2:
+    show_html_chart("Age Distribution", "age_group.html")
 
-with st.expander("Demographic Overview", expanded=True):
-    col1, col2 = st.columns(2)
-
-    with col1:
-        show_html_chart("Party Affiliation", "party.html")
-        show_html_chart("Age Distribution", "age_group.html")
+# Collapse the rest
+with st.expander("More Demographics", expanded=False):
+    col3, col4 = st.columns(2)
+    with col3:
         show_html_chart("Gender", "gender.html")
-
-    with col2:
         show_html_chart("Family Income", "family_income.html")
+    with col4:
         show_html_chart("Race", "race.html")
         show_html_chart("Religion", "religion.html")
-        show_html_chart("Education", "education.html")
 
 with st.expander("Agreements and Disagreements", expanded=True):
     show_html_chart("Average Vote by Party", "vote_by_party.html")
