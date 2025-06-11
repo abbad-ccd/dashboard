@@ -37,14 +37,16 @@ with st.expander("Agreements and Disagreements", expanded=True):
     show_html_chart("Average Vote by Party", "vote_by_party.html")
     show_html_chart("Issues: Not Supported", "oppose_percentage_by_party.html")
     show_html_chart("Issues: Supported", "support_percentage_by_party.html")
+    
+with st.expander("Browse by Top Proposals", expanded=False):
     show_html_chart("Proposals: Least Supported", "opposed_proposals_by_party.html")
     show_html_chart("Proposals: Most Supported", "supported_proposals_by_party.html")
 
-with st.expander("Data by State", expanded=False):
+with st.expander("By State", expanded=True):
     show_html_chart("GBP vs. Current Direction", "GBP vs. Current Direction.html")
     show_html_chart("Average Votes by State", "average_votes_by_state.html")
 
-with st.expander("Browse by Issue", expanded=False):
+with st.expander("Browse by State + Issue", expanded=False):
     show_html_chart("Votes by State: Economy", "min_Economy.html")
     show_html_chart("Votes by State: Education", "min_Education.html")
     show_html_chart("Votes by State: Healthcare", "min_Healthcare.html")
