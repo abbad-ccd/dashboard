@@ -16,13 +16,12 @@ def show_html_chart(title: str, filename: str, height: int = 600):
     except FileNotFoundError:
         st.error(f"❌ Could not find {filename}")
 
-st.subheader("Demographics:")
+st.subheader("Demographics")
 col1, col2 = st.columns(2)
 with col1:
     show_html_chart("Party Affiliation", "party.html")
 with col2:
     show_html_chart("Age Distribution", "age_group.html")
-
 # Collapse the rest
 with st.expander("More Demographics", expanded=False):
     col3, col4 = st.columns(2)
@@ -33,6 +32,10 @@ with st.expander("More Demographics", expanded=False):
         show_html_chart("Race", "race.html")
         show_html_chart("Religion", "religion.html")
 
+with st.expander("The Grand Bargain vs. Current Direction", expanded=True):
+    show_html_chart("The Grand Bargain vs. Current Direction Votes, Overall", "current vs. gbp total.html")
+    show_html_chart("For Those Who Prefer the 'Current Direction': Least Supported Proposals", "least_supported_by_current_direction.html")
+    
 with st.expander("Agreements and Disagreements", expanded=True):
     show_html_chart("Average Vote by Party", "vote_by_party.html")
     show_html_chart("Issues: Not Supported", "oppose_percentage_by_party.html")
