@@ -22,6 +22,7 @@ with col1:
     show_html_chart("Party Affiliation", "party.html")
 with col2:
     show_html_chart("Age Distribution", "age_group.html")
+
 # Collapse the rest
 with st.expander("More Demographics", expanded=False):
     col3, col4 = st.columns(2)
