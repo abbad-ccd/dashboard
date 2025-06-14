@@ -12,14 +12,14 @@ global_toggle = st.radio("Select Survey Month:", ["May", "June"], horizontal=Tru
 # Function to load and display HTML file with a per-chart override
 def show_html_chart(title: str, may_file: str, june_file: str, height: int = 600, allow_individual_toggle: bool = False):
     st.subheader(title)
-    
-    # Determine which month to show
+
+    # Use override toggle if allowed
     if allow_individual_toggle:
-        month = st.radio(f"{title} - Month", ["Global", "May", "June"], horizontal=True, key=title)
-        if month == "Global":
+        month_override = st.radio(f"{title} - Month (Overrides Global)", ["Use Global", "May", "June"], horizontal=True, key=title)
+        if month_override == "Use Global":
             use_june = (global_toggle == "June")
         else:
-            use_june = (month == "June")
+            use_june = (month_override == "June")
     else:
         use_june = (global_toggle == "June")
 
