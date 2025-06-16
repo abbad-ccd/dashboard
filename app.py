@@ -15,7 +15,7 @@ def show_html_chart(title: str, may_file: str, june_file: str, height: int = 600
 
     # Use override toggle if allowed
     if allow_individual_toggle:
-        month_override = st.radio(f"{title} - Month (Overrides Global)", ["Use Global", "May", "June"], horizontal=True, key=title)
+        month_override = st.radio(f"{title} - Month (Overrides Global)", ["May", "June"], horizontal=True, key=title)
         if month_override == "Use Global":
             use_june = (global_toggle == "June")
         else:
