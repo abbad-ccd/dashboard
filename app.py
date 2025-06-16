@@ -10,20 +10,18 @@ st.title("YouGov Data Insights")
 global_toggle = st.radio("Select Survey Month:", ["May", "June"], horizontal=True)
 
 # Function to load and display HTML file with a per-chart override
-def show_html_chart(title: str, may_file: str, june_file: str, height: int = 600, allow_individual_toggle: bool = False):
+def show_html_chart(title: str, may_file: str, june_file: str = None, height: int = 600, allow_individual_toggle: bool = False):
     st.subheader(title)
 
     # Use override toggle if allowed
     if allow_individual_toggle:
         month_override = st.radio(f"{title} - Month (Overrides Global)", ["May", "June"], horizontal=True, key=title)
-        if month_override == "Use Global":
-            use_june = (global_toggle == "June")
-        else:
-            use_june = (month_override == "June")
+        use_june = (month_override == "June")
     else:
         use_june = (global_toggle == "June")
 
-    filename = june_file if use_june else may_file
+    # Choose file based on selected month
+    filename = june_file if use_june and june_file else may_file
 
     try:
         with open(filename, 'r', encoding='utf-8') as f:
@@ -51,6 +49,18 @@ with st.expander("More Demographics", expanded=False):
         show_html_chart("Race", "may_race.html", "june_race.html", allow_individual_toggle=True)
         show_html_chart("Religion", "may_religion.html", "june_religion.html", allow_individual_toggle=True)
 
+with st.expander("By State", expanded=True):
+    show_html_chart("GBP vs. Current Direction", "may_GBP vs. Current Direction.html", "june_GBP_vs_Current_Direction.html")
+    show_html_chart("Average Votes by State", "may_average_votes_by_state.html", "june_proposal_support_by_state.html")
+
+with st.expander("Browse by State + Issue", expanded=False):
+    show_html_chart("Votes by State: Economy", "may_min_Economy.html")
+    show_html_chart("Votes by State: Education", "may_min_Education.html")
+    show_html_chart("Votes by State: Healthcare", "may_min_Healthcare.html")
+    show_html_chart("Votes by State: Energy", "may_min_Energy.html")
+    show_html_chart("Votes by State: Taxes", "may_min_Taxes.html")
+    show_html_chart("Votes by State: Debt", "may_min_Debt.html")
+
 with st.expander("The Grand Bargain vs. Current Direction", expanded=True):
     show_html_chart("The Grand Bargain vs. Current Direction Votes, Overall",
                     "may_current vs. gbp total.html", "june_current vs. gbp total.html")
@@ -65,16 +75,3 @@ with st.expander("Agreements and Disagreements", expanded=True):
 with st.expander("Browse by Top Proposals", expanded=False):
     show_html_chart("Proposals: Least Supported", "may_opposed_proposals_by_party.html", "june_opposed_proposals_by_party.html")
     show_html_chart("Proposals: Most Supported", "may_supported_proposals_by_party.html", "june_supported_proposals_by_party.html")
-
-with st.expander("By State", expanded=True):
-    show_html_chart("GBP vs. Current Direction", "may_GBP vs. Current Direction.html", "june_GBP_vs_Current_Direction.html")
-    show_html_chart("Average Votes by State", "may_average_votes_by_state.html", "june_proposal_support_by_state.html")
-
-with st.expander("Browse by State + Issue", expanded=False):
-    show_html_chart("Votes by State: Economy", "may_min_Economy.html")
-    show_html_chart("Votes by State: Education", "may_min_Education.html")
-    show_html_chart("Votes by State: Healthcare", "may_min_Healthcare.html")
-    show_html_chart("Votes by State: Energy", "may_min_Energy.html")
-    show_html_chart("Votes by State: Taxes", "may_min_Taxes.html")
-    show_html_chart("Votes by State: Debt", "may_min_Debt.html")
-
