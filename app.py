@@ -67,8 +67,8 @@ with st.expander("Browse by Top Proposals", expanded=False):
     show_html_chart("Proposals: Most Supported", "may_supported_proposals_by_party.html", "june_supported_proposals_by_party.html")
 
 with st.expander("By State", expanded=True):
-    show_html_chart("GBP vs. Current Direction", "may_GBP vs. Current Direction.html")
-    show_html_chart("Average Votes by State", "may_average_votes_by_state.html")
+    show_html_chart("GBP vs. Current Direction", "may_GBP vs. Current Direction.html", "june_GBP_vs_Current_Direction.html")
+    show_html_chart("Average Votes by State", "may_average_votes_by_state.html", "june_proposal_support_by_state.html")
 
 with st.expander("Browse by State + Issue", expanded=False):
     show_html_chart("Votes by State: Economy", "may_min_Economy.html")
