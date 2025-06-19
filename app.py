@@ -23,7 +23,7 @@ def show_html_chart(title: str, may_file: str, june_file: str = None, height: in
                 html_content = f.read()
                 components.html(html_content, height=height, scrolling=True)
         elif filename.endswith(".png") or filename.endswith(".jpg"):
-            st.image(filename, use_column_width=True)
+            st.image(filename, use_container_width=True)
         else:
             st.warning(f"⚠️ Unsupported file type: {filename}")
     except FileNotFoundError:
@@ -39,15 +39,14 @@ with st.expander("The Grand Bargain vs. Current Direction", expanded=True):
     show_html_chart("The Grand Bargain vs. Current Direction Votes, Overall",
                     "may_current vs. gbp total.html", "june_current vs. gbp total.html", month=gbp_month)
 
-# May vs. June: A Comparison
-col1, col2 = st.columns(2)
-with col1:
-    show_html_chart("Change by issue: Circles show the starting point in May, arrows show the direction of the change in June", "issue_change_in_opposition_may_to_june.html")
-with col2:
-    show_html_chart("Change by proposal: Circles show the starting point in May, arrows show the direction of the change in June", "proposal_change_in_opposition_may_to_june_all.html")
-
 with st.expander("Those who prefer the \"Current Direction\": Demographic bias", expanded=True):
     show_html_chart("Party affiliation of those preferring the current direction", "rejectors_by_party_may_vs_june.html")
+
+
+# May vs. June: A Comparison
+with st.expander("Changes in the data from May to June": Demographic bias", expanded=True):
+    show_html_chart("Change by issue: Circles show the starting point in May, arrows show the direction of the change in June", "issue_change_in_opposition_may_to_june.html")
+    show_html_chart("Change by proposal: Circles show the starting point in May, arrows show the direction of the change in June", "proposal_change_in_opposition_may_to_june_all.html")
 
 with st.expander("Those who prefer the \"Current Direction\": Demographic bias", expanded=False):
     show_html_chart("Demographic biases: Blue represents the respondent average, red represent the trends among those preferring the current direction", "GBP_reject_demographic_bias_all.html")
