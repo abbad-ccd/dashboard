@@ -18,9 +18,14 @@ def show_html_chart(title: str, may_file: str, june_file: str = None, height: in
     filename = june_file if use_june and june_file else may_file
 
     try:
-        with open(filename, 'r', encoding='utf-8') as f:
-            html_content = f.read()
-            components.html(html_content, height=height, scrolling=True)
+        if filename.endswith(".html"):
+            with open(filename, 'r', encoding='utf-8') as f:
+                html_content = f.read()
+                components.html(html_content, height=height, scrolling=True)
+        elif filename.endswith(".png") or filename.endswith(".jpg"):
+            st.image(filename, use_column_width=True)
+        else:
+            st.warning(f"⚠️ Unsupported file type: {filename}")
     except FileNotFoundError:
         st.error(f"❌ Could not find {filename}")
 
@@ -28,7 +33,47 @@ def show_html_chart(title: str, may_file: str, june_file: str = None, height: in
 # CHARTS
 # ---------------------------
 
-# DEMOGRAPHICS
+# GRAND BARGAIN VS CURRENT DIRECTION
+with st.expander("The Grand Bargain vs. Current Direction", expanded=True):
+    gbp_month = section_toggle("Grand Bargain Section")
+    show_html_chart("The Grand Bargain vs. Current Direction Votes, Overall",
+                    "may_current vs. gbp total.html", "june_current vs. gbp total.html", month=gbp_month)
+
+# May vs. June: A Comparison
+col1, col2 = st.columns(2)
+with col1:
+    show_html_chart("Change by issue: Circles show the starting point in May, arrows show the direction of the change in June", "issue_change_in_opposition_may_to_june.html")
+with col2:
+    show_html_chart("Change by proposal: Circles show the starting point in May, arrows show the direction of the change in June", "proposal_change_in_opposition_may_to_june_all.html")
+
+with st.expander("Those who prefer the \"Current Direction\": Demographic bias", expanded=True):
+    show_html_chart("Party affiliation of those preferring the current direction", "rejectors_by_party_may_vs_june.html")
+
+with st.expander("Those who prefer the \"Current Direction\": Demographic bias", expanded=False):
+    show_html_chart("Demographic biases: Blue represents the respondent average, red represent the trends among those preferring the current direction", "GBP_reject_demographic_bias_all.html")
+
+with st.expander("Who can we persuade?", expanded=True):
+    show_html_chart("The top reasons we have seen people mention when they choose the \"Current Direction\" instead of the Grand Bargain", "Top topics.png")
+
+# AGREEMENTS AND DISAGREEMENTS
+with st.expander("Agreements and Disagreements", expanded=True):
+    agree_month = section_toggle("Agreements and Disagreements")
+    show_html_chart("Issues: Not Supported", "may_oppose_percentage_by_party.html", "june_oppose_percentage_by_party.html", month=agree_month)
+    show_html_chart("Issues: Supported", "may_support_percentage_by_party.html", "june_support_percentage_by_party.html", month=agree_month)
+
+# TOP PROPOSALS
+with st.expander("Browse by Top Proposals", expanded=False):
+    proposals_month = section_toggle("Browse by Top Proposals")
+    show_html_chart("Proposals: Least Supported", "may_opposed_proposals_by_party.html", "june_opposed_proposals_by_party.html", month=proposals_month)
+    show_html_chart("Proposals: Most Supported", "may_supported_proposals_by_party.html", "june_supported_proposals_by_party.html", month=proposals_month)
+
+# BY STATE
+with st.expander("By State", expanded=True):
+    state_month = section_toggle("By State")
+    show_html_chart("GBP vs. Current Direction", "may_GBP vs. Current Direction.html", "june_GBP_vs_Current_Direction.html", month=state_month)
+    show_html_chart("Average Votes by State", "may_average_votes_by_state.html", "june_proposal_support_by_state.html", month=state_month)
+
+# FULL DEMOGRAPHICS
 st.subheader("Demographics")
 demographics_month = section_toggle("Demographics")
 col1, col2 = st.columns(2)
@@ -46,40 +91,3 @@ with st.expander("More Demographics", expanded=False):
     with col4:
         show_html_chart("Race", "may_race.html", "june_race.html", month=more_demo_month)
         show_html_chart("Religion", "may_religion.html", "june_religion.html", month=more_demo_month)
-
-# BY STATE
-with st.expander("By State", expanded=True):
-    state_month = section_toggle("By State")
-    show_html_chart("GBP vs. Current Direction", "may_GBP vs. Current Direction.html", "june_GBP_vs_Current_Direction.html", month=state_month)
-    show_html_chart("Average Votes by State", "may_average_votes_by_state.html", "june_proposal_support_by_state.html", month=state_month)
-
-# GRAND BARGAIN VS CURRENT DIRECTION
-with st.expander("The Grand Bargain vs. Current Direction", expanded=True):
-    gbp_month = section_toggle("Grand Bargain Section")
-    show_html_chart("The Grand Bargain vs. Current Direction Votes, Overall",
-                    "may_current vs. gbp total.html", "june_current vs. gbp total.html", month=gbp_month)
-    show_html_chart("For Those Who Prefer the 'Current Direction': Least Supported Proposals",
-                    "may_least_supported_by_current_direction.html", "june_least_supported_by_current_direction.html", month=gbp_month)
-
-# AGREEMENTS AND DISAGREEMENTS
-with st.expander("Agreements and Disagreements", expanded=True):
-    agree_month = section_toggle("Agreements and Disagreements")
-    show_html_chart("Average Vote by Party", "may_vote_by_party.html", "june_vote_by_party.html", month=agree_month)
-    show_html_chart("Issues: Not Supported", "may_oppose_percentage_by_party.html", "june_oppose_percentage_by_party.html", month=agree_month)
-    show_html_chart("Issues: Supported", "may_support_percentage_by_party.html", "june_support_percentage_by_party.html", month=agree_month)
-
-# TOP PROPOSALS
-with st.expander("Browse by Top Proposals", expanded=False):
-    proposals_month = section_toggle("Browse by Top Proposals")
-    show_html_chart("Proposals: Least Supported", "may_opposed_proposals_by_party.html", "june_opposed_proposals_by_party.html", month=proposals_month)
-    show_html_chart("Proposals: Most Supported", "may_supported_proposals_by_party.html", "june_supported_proposals_by_party.html", month=proposals_month)
-
-# BY STATE + ISSUE
-with st.expander("Browse by State + Issue", expanded=False):
-    state_issue_month = section_toggle("Browse by State + Issue")
-    show_html_chart("Votes by State: Economy", "may_min_Economy.html", month=state_issue_month)
-    show_html_chart("Votes by State: Education", "may_min_Education.html", month=state_issue_month)
-    show_html_chart("Votes by State: Healthcare", "may_min_Healthcare.html", month=state_issue_month)
-    show_html_chart("Votes by State: Energy", "may_min_Energy.html", month=state_issue_month)
-    show_html_chart("Votes by State: Taxes", "may_min_Taxes.html", month=state_issue_month)
-    show_html_chart("Votes by State: Debt", "may_min_Debt.html", month=state_issue_month)
