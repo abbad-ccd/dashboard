@@ -44,7 +44,7 @@ with st.expander("Those who prefer the \"Current Direction\": Demographic bias",
 
 
 # May vs. June: A Comparison
-with st.expander("Changes in the data from May to June": Demographic bias", expanded=True):
+with st.expander("Changes in the data from May to June", expanded=True):
     show_html_chart("Change by issue: Circles show the starting point in May, arrows show the direction of the change in June", "issue_change_in_opposition_may_to_june.html")
     show_html_chart("Change by proposal: Circles show the starting point in May, arrows show the direction of the change in June", "proposal_change_in_opposition_may_to_june_all.html")
 
