@@ -47,16 +47,40 @@ with st.expander("The Grand Bargain vs. Current Direction", expanded=True):
 with st.expander("Those who prefer the \"Current Direction\": Demographic bias", expanded=True):
     show_html_chart("Party affiliation of those preferring the current direction", "rejectors_by_party_june_vs_july.html")
 
-with st.expander("Changes in the data from May to June", expanded=True):
-    show_html_chart("Change by issue: Circles show the starting point in May, arrows show the direction of the change in June",
-                    "issue_change_in_opposition_may_to_june.html",
-                    "issue_change_in_opposition_may_to_june.html",
-                    "issue_change_in_opposition_june_to_july.html")
+with st.expander("Changes in the data from June to July", expanded=True):
+    # Toggle to select comparison period
+    period = st.radio(
+        "Select comparison period:",
+        options=["May → June", "June → July"],
+        index=1,  # Default to "June → July"
+        horizontal=True,
+        key="change_period_toggle"
+    )
 
-    show_html_chart("Change by proposal: Circles show the starting point in May, arrows show the direction of the change in June",
-                    "proposal_change_in_opposition_may_to_june_all.html",
-                    "proposal_change_in_opposition_may_to_june_all.html",
-                    "proposal_change_in_opposition_june_to_july_all.html")
+    if period == "May → June":
+        show_html_chart(
+            "Change by issue: Circles show the starting point in May, arrows show the direction of the change in June",
+            "issue_change_in_opposition_may_to_june.html",
+            "issue_change_in_opposition_may_to_june.html"
+        )
+
+        show_html_chart(
+            "Change by proposal: Circles show the starting point in May, arrows show the direction of the change in June",
+            "proposal_change_in_opposition_may_to_june_all.html",
+            "proposal_change_in_opposition_may_to_june_all.html"
+        )
+    else:  # "June → July"
+        show_html_chart(
+            "Change by issue: Circles show the starting point in June, arrows show the direction of the change in July",
+            "issue_change_in_opposition_may_to_june.html",   # fallback May-Jun as baseline file? You can replace this if July-specific base is available
+            "issue_change_in_opposition_june_to_july.html"
+        )
+
+        show_html_chart(
+            "Change by proposal: Circles show the starting point in June, arrows show the direction of the change in July",
+            "proposal_change_in_opposition_may_to_june_all.html",  # fallback May-Jun baseline file
+            "proposal_change_in_opposition_june_to_july_all.html"
+        )
 
 with st.expander("Those who prefer the \"Current Direction\": Demographic bias", expanded=False):
     show_html_chart("Demographic biases: Blue represents the respondent average, red represent the trends among those preferring the current direction",
@@ -102,7 +126,7 @@ with st.expander("By State", expanded=True):
     show_html_chart("Average Votes by State",
                     "may_average_votes_by_state.html",
                     "june_proposal_support_by_state.html",
-                    "july_proposal_support_by_state.html",
+                    "july__proposal_support_by_state.html",
                     month=state_month)
 
 st.subheader("Demographics")
