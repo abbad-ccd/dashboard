@@ -77,7 +77,7 @@ with st.expander("Changes in the data from June to July", expanded=True):
 
         show_html_chart(
             "Change by proposal: Circles show the starting point in June, arrows show the direction of the change in July",
-            "proposal_change_in_opposition_june_to_july_all.html"
+            "proposal_change_in_opposition_may_to_july_all.html"
         )
 
 with st.expander("Those who prefer the \"Current Direction\": Demographic bias", expanded=False):
