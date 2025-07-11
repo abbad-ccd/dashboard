@@ -126,7 +126,7 @@ with st.expander("By State", expanded=True):
     show_html_chart("Average Votes by State",
                     "may_average_votes_by_state.html",
                     "june_proposal_support_by_state.html",
-                    "july__proposal_support_by_state.html",
+                    "july_proposal_support_by_state.html",
                     month=state_month)
 
 st.subheader("Demographics")
