@@ -72,13 +72,11 @@ with st.expander("Changes in the data from June to July", expanded=True):
     else:  # "June → July"
         show_html_chart(
             "Change by issue: Circles show the starting point in June, arrows show the direction of the change in July",
-            "issue_change_in_opposition_may_to_june.html",   # fallback May-Jun as baseline file? You can replace this if July-specific base is available
             "issue_change_in_opposition_june_to_july.html"
         )
 
         show_html_chart(
             "Change by proposal: Circles show the starting point in June, arrows show the direction of the change in July",
-            "proposal_change_in_opposition_may_to_june_all.html",  # fallback May-Jun baseline file
             "proposal_change_in_opposition_june_to_july_all.html"
         )
 
